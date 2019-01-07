@@ -292,10 +292,6 @@ Notifications.cancelLocalNotifications = function() {
 	return this.callNative('cancelLocalNotifications', arguments);
 };
 
-Notifications.clearLocalNotification = function() {
-    return this.callNative('clearLocalNotification', arguments);
-};
-
 Notifications.cancelAllLocalNotifications = function() {
 	return this.callNative('cancelAllLocalNotifications', arguments);
 };
@@ -326,8 +322,12 @@ Notifications.registerNotificationActions = function() {
 	return this.callNative('registerNotificationActions', arguments)
 }
 
+Notifications.clearLocalNotification = function() {
+	if (Platform.OS === 'ios') return this.callNative('removeDeliveredNotifications', arguments);
+	return this.callNative('clearLocalNotification', arguments);
+};
+
 Notifications.clearAllNotifications = function() {
-	// Only available for Android
 	if (Platform.OS === 'ios') return this.callNative('removeAllDeliveredNotifications', arguments);
 	return this.callNative('clearAllNotifications', arguments);
 }
